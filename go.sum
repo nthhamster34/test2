@@ -1,0 +1,4 @@
+github.com/justinas/alice v1.23.0 h1:beY6DO5z6wnS0KueQo8ZMsC5N4fl+4/f6NGBW6yvU6Y=
+github.com/justinas/alice v1.23.0/go.mod h1:KX+X9lwJq3v3yEPKARwEz1+HaGIRJFvBZoTtLOJf1Oc=
+github.com/rs/cors v1.7.0 h1:vSc7s3rm+IOolD7VHOGb9u0QVskoFyaYD7azCwqx0zE=
+github.com/rs/cors v1.7.0/go.mod h1:O1fJU6yUIaA+5tn1wvTT5h5W5JX9yaUD95sh+Qv3J+E=
