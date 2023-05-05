@@ -9,7 +9,6 @@ import (
 	"github.com/rs/cors"
 )
 
-// loggerMiddleware is a middleware function that logs incoming HTTP requests to a file.
 func loggerMiddleware(next http.Handler) http.Handler {
 	// Open a log file for writing.
 	logFile, err := os.OpenFile("access.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
@@ -21,6 +20,13 @@ func loggerMiddleware(next http.Handler) http.Handler {
 
 	// Return a new http.Handler that logs the request and calls the next middleware in the chain.
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		username, password, _ := r.BasicAuth()
+		if username != "myusername" || password != "mypassword" {
+			w.Header().Set("WWW-Authenticate", `Basic realm="my realm"`)
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Unauthorized\n"))
+			return
+		}
 		logger.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL)
 		next.ServeHTTP(w, r)
 	})
@@ -29,7 +35,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 // handleRequest is the main request handler function that handles the HTTP request and sends a response back to the client.
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	// Handle the request...
-	w.Write([]byte("Everything is functional"))
+	w.Write([]byte("Hello"))
 }
 
 func main() {
@@ -41,7 +47,7 @@ func main() {
 
 	// Create a new HTTP server with our middleware chain and handleRequest function.
 	server := http.Server{
-		Addr:    ":3000",
+		Addr:    ":3030",
 		Handler: chain,
 	}
 
