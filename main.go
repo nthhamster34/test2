@@ -21,7 +21,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 	// Return a new http.Handler that logs the request and calls the next middleware in the chain.
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		username, password, _ := r.BasicAuth()
-		if username != "myusername" || password != "mypassword" {
+		if username != "yam" || password != "password" {
 			w.Header().Set("WWW-Authenticate", `Basic realm="my realm"`)
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("Unauthorized\n"))
